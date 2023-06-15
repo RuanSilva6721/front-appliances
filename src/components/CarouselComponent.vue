@@ -1,6 +1,6 @@
 <template>
- <div class="q-pa-md">
-
+  <div class="q-pa-md">
+    <h5 class="brand-title">Selecione sua marca favorita</h5>
     <q-carousel
       v-model="slide"
       swipeable
@@ -12,54 +12,68 @@
       arrows
       height="300px"
       class="text-primary rounded-borders"
+      @mounted="advanceCarousel"
     >
-      <q-carousel-slide name="style" class="column no-wrap flex-center">
-        <q-icon name="style" size="56px" />
+      <q-carousel-slide
+        v-for="(item, index) in slideItemBrand"
+        :key="index"
+        :name="`slide-${index}`"
+        class="column no-wrap flex-center"
+      >
+        <q-icon :name="item.icon" size="56px" />
         <div class="q-mt-md text-center">
-          {{ lorem }}
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide name="tv" class="column no-wrap flex-center">
-        <q-icon name="live_tv" size="56px" />
-        <div class="q-mt-md text-center">
-          {{ lorem }}
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide name="layers" class="column no-wrap flex-center">
-        <q-icon name="layers" size="56px" />
-        <div class="q-mt-md text-center">
-          {{ lorem }}
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide name="map" class="column no-wrap flex-center">
-        <q-icon name="terrain" size="56px" />
-        <div class="q-mt-md text-center">
-          {{ lorem }}
+          {{ item.name }}
         </div>
       </q-carousel-slide>
     </q-carousel>
   </div>
 </template>
-  
+
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onBeforeMount } from 'vue'
+import api from "../axios/api";
 
-    const controlType= ref('flat');
-    const controlTypeOptions = [
-        { value: 'regular', label: 'regular' },
-        { value: 'unelevated', label: 'unelevated' },
-        { value: 'flat', label: 'flat (default)' },
-        { value: 'outline', label: 'outline' },
-        { value: 'push', label: 'push' }
-    ];
+const controlType = ref('flat');
+const slide = ref(0);
+const slideItemBrand = ref([]);
 
-    const slide= ref('style');
-    const lorem = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque1 voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.';
+async function getBrandData() {
+  try {
+    const responseData = await api.get('/api/applianceBrand');
+    slideItemBrand.value = responseData.data;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
+onBeforeMount(async () => {
+  await getBrandData();
+  advanceCarousel()
+});
 
+function advanceCarousel() {
+  const lensIcon = document.querySelector('.q-icon.notranslate.material-icons') as HTMLElement;
+  if (lensIcon) {
+    lensIcon.click();
+  }
+}
 </script>
+
 <style lang="sass" scoped>
+.custom-link 
+  color: inherit
+  text-decoration: none
+  cursor: pointer
+
 .my-card
   width: 100%
   max-width: 350px
-</style>  
+
+.brand-title 
+  font-size: 1.2rem
+  font-weight: bold
+  color: #333
+  text-transform: uppercase
+  margin-bottom: 0
+
+</style>

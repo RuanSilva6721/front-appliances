@@ -1,33 +1,38 @@
 <template>
-<TitleIndexComponent/>
-<CarouselComponent/>
-
+  <div v-if="productData.length > 0">
+    <TitleIndexComponent />
+    <CarouselComponent />
+    <CardComponent :productData="productData" />
+  </div>
+  <div v-else>
+    Carregando...
+  </div>
 </template>
+
 
 <script setup lang="ts">
 import { Todo, Meta } from 'components/models';
+import CardComponent from 'src/components/CardComponent.vue';
 import CarouselComponent from 'src/components/CarouselComponent.vue';
 import TitleIndexComponent from 'src/components/TitleIndexComponent.vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import api from "../axios/api";
 
+const productData = ref([]);
 
-const items = ref([
-      {
-        image: "https://example.com/image1.jpg",
-        caption: "Slide 1",
-        link: "https://example.com"
-      },
-      {
-        image: "https://example.com/image2.jpg",
-        caption: "Slide 2",
-        link: "https://example.com"
-      },
-      {
-        image: "https://example.com/image3.jpg",
-        caption: "Slide 3",
-        link: "https://example.com"
-      }
-    ]);
+async function getProductAllData() {
+  try {
+    const responseData = await api.get('/api/applianceProduct');
+    productData.value = responseData.data;
+    console.log(productData.value[0])
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+onMounted(async () => {
+  await getProductAllData();
+});
 
 const meta = ref<Meta>({
   totalCount: 1200,
