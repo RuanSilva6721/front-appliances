@@ -1,16 +1,15 @@
 <template>
- 
     <TitleIndexComponent />
     <MenuAdminComponent/>
-  <div v-if="productData.length > 0">
-    <h5 class="title">Selecione sua marca favorita</h5>
+    <h5 class="title">Marca Selecionada</h5>
       <MenuBrandComponent :slideItemBrand="slideItemBrand" />
-    <h5 class="title">Produtos</h5>
-      <CardComponent :productData="productData" />
-  </div>
-  <div v-else>
-    Não há Marcas e Produtos cadastrados!!
-  </div>
+    <div v-if="productData.length > 0">
+      <h5 class="title">Produtos Da Marca Selecionada</h5>
+        <CardComponent :productData="productData" />
+    </div>
+    <div v-else>
+      Não há Produtos Cadastrados
+    </div>
 </template>
 
 
@@ -23,21 +22,23 @@ import { ref, onMounted } from 'vue';
 import api from "../axios/api";
 import MenuAdminComponent from 'src/components/MenuAdminComponent.vue';
 
+const brandId = window.location.href.split('/').pop();
 const productData = ref([]);
-const slideItemBrand =  ref([]);
+const slideItemBrand =  ref();
 async function getProductAllData() {
   try {
-    const responseData = await api.get('/api/applianceProduct');
+    const responseData = await api.get(`/api/getProductOfBrand/${brandId}`);
     productData.value = responseData.data;
-    console.log(productData.value[0])
+    console.log(responseData.data);
   } catch (err) {
     console.error(err);
   }
 }
 async function getBrandData() {
   try {
-    const responseData = await api.get('/api/applianceBrand');
-    slideItemBrand.value = responseData.data;
+    const responseData = await api.get(`/api/applianceBrand/${brandId}`);
+    slideItemBrand.value = [responseData.data];
+    console.log(slideItemBrand.value)
   } catch (err) {
     console.error(err);
   }

@@ -11,8 +11,22 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/SearchServicesPage.vue') }],
   },
-  // Always leave this as last one,
-  // but you can also remove it
+  {
+    path: '/create-product',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/CreateProductPage.vue') }],
+  },
+  {
+    path: '/create-brand',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/CreateBrandPage.vue') }],
+  },
+  {
+    path: '/brand-produto-list/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/BrandProductListPage.vue') }],
+  },
+
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
