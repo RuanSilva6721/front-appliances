@@ -1,31 +1,19 @@
 <template>
   <div class="q-pa-md">
     <h5 class="brand-title">Selecione sua marca favorita</h5>
-    <q-carousel
-      v-model="slide"
-      swipeable
-      animated
-      :control-type="controlType"
-      control-color="primary"
-      navigation
-      padding
-      arrows
-      height="300px"
-      class="text-primary rounded-borders"
-      @mounted="advanceCarousel"
-    >
-      <q-carousel-slide
+    <div class="admin-menu">
+      <a
         v-for="(item, index) in slideItemBrand"
         :key="index"
-        :name="`slide-${index}`"
-        class="column no-wrap flex-center"
+        :href="`/BrandProdutoList/${item.id}`"
+        class="admin-menu-item custom-link"
       >
         <q-icon :name="item.icon" size="56px" />
         <div class="q-mt-md text-center">
           {{ item.name }}
         </div>
-      </q-carousel-slide>
-    </q-carousel>
+      </a>
+    </div>
   </div>
 </template>
 
@@ -33,8 +21,6 @@
 import { ref, onBeforeMount } from 'vue'
 import api from "../axios/api";
 
-const controlType = ref('flat');
-const slide = ref(0);
 const slideItemBrand = ref([]);
 
 async function getBrandData() {
@@ -48,23 +34,10 @@ async function getBrandData() {
 
 onBeforeMount(async () => {
   await getBrandData();
-  advanceCarousel()
 });
-
-function advanceCarousel() {
-  const lensIcon = document.querySelector('.q-icon.notranslate.material-icons') as HTMLElement;
-  if (lensIcon) {
-    lensIcon.click();
-  }
-}
 </script>
 
 <style lang="sass" scoped>
-.custom-link 
-  color: inherit
-  text-decoration: none
-  cursor: pointer
-
 .my-card
   width: 100%
   max-width: 350px
@@ -75,5 +48,27 @@ function advanceCarousel() {
   color: #333
   text-transform: uppercase
   margin-bottom: 0
+  margin-left: 60px
 
+.admin-menu
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+  gap: 16px
+  margin-bottom: 60px
+  margin-top: 60px
+
+.admin-menu-item
+  display: flex
+  flex-direction: column
+  align-items: center
+  cursor: pointer
+
+  .q-icon
+    margin-bottom: 8px
+
+.custom-link 
+  color: inherit
+  text-decoration: none
+  cursor: pointer
 </style>

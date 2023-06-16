@@ -1,7 +1,8 @@
 <template>
   <div v-if="productData.length > 0">
     <TitleIndexComponent />
-    <CarouselComponent />
+    <MenuAdminComponent/>
+    <MenuBrandComponent />
     <CardComponent :productData="productData" />
   </div>
   <div v-else>
@@ -13,10 +14,11 @@
 <script setup lang="ts">
 import { Todo, Meta } from 'components/models';
 import CardComponent from 'src/components/CardComponent.vue';
-import CarouselComponent from 'src/components/CarouselComponent.vue';
+import MenuBrandComponent from 'src/components/MenuBrandComponent.vue';
 import TitleIndexComponent from 'src/components/TitleIndexComponent.vue';
 import { ref, onMounted } from 'vue';
 import api from "../axios/api";
+import MenuAdminComponent from 'src/components/MenuAdminComponent.vue';
 
 const productData = ref([]);
 

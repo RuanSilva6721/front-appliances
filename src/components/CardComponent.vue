@@ -1,4 +1,5 @@
 <template>
+  <h5 class="product-title">Produtos</h5>
   <div class="q-pa-md row items-start q-gutter-md">
     <q-card v-for="(item, index) in items" :key="index" class="my-card" flat bordered>
       <q-img src="https://cdn.quasar.dev/img/parallax2.jpg" />
@@ -146,4 +147,12 @@ function closeMessageModal() {
 .my-card
   width: 100%
   max-width: 350px
+
+.product-title
+  font-size: 1.2rem
+  font-weight: bold
+  color: #333
+  text-transform: uppercase
+  margin-bottom: 0
+  margin-left: 70px
 </style>
