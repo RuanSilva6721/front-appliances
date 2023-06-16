@@ -71,7 +71,7 @@ const router = useRouter();
 
 async function getProductAllData() {
   try {
-    const responseData = await api.get(`/api/getProductOfBrand/${brandId}`);
+    const responseData = await api.get(`/api/applianceProductOfBrand/${brandId}`);
     productData.value = responseData.data;
     console.log(responseData.data);
   } catch (err) {
