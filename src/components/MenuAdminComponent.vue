@@ -28,13 +28,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount } from 'vue'
-import api from "../axios/api";
-
-
-    const lorem= 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-    
-
 </script>
 
 <style lang="sass" scoped>

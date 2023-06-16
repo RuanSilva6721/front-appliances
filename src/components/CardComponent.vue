@@ -5,7 +5,6 @@
       <q-img src="https://cdn.quasar.dev/img/parallax2.jpg" />
 
       <q-card-section>
-        <div class="text-orange-9">Overline</div>
         <div class="text-h5 q-mt-sm q-mb-xs">{{ item.name }}</div>
         <div class="text-caption text-grey">{{ item.voltage }}</div>
       </q-card-section>
