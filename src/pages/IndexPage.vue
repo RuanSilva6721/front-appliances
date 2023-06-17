@@ -29,7 +29,6 @@ async function getProductAllData() {
   try {
     const responseData = await api.get('/api/applianceProduct');
     productData.value = responseData.data;
-    console.log(productData.value[0])
   } catch (err) {
     console.error(err);
   }
