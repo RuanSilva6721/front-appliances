@@ -2,7 +2,7 @@
  
     <TitleIndexComponent />
     <MenuAdminComponent/>
-  <div v-if="productData.length > 0">
+  <div v-if="slideItemBrand.length > 0">
     <h5 class="title">Selecione sua marca favorita</h5>
       <MenuBrandComponent :slideItemBrand="slideItemBrand" />
     <h5 class="title">Produtos</h5>
