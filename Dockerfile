@@ -10,4 +10,4 @@ RUN npm install
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["npm", "run", "dev"]
+CMD bash -c "npm install && npm run dev "
